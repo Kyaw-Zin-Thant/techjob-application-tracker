@@ -26,7 +26,7 @@ const App: React.FC = () => {
   const userId = 'ui-only-user-id-12345';
   const statuses = ['Applied', 'Interviewing', 'Rejected', 'Offer'];
     useEffect(() => {
-    axios.get('http://localhost:5000/interviews')
+    axios.get('https://techjob-application-tracker.onrender.com/interviews')
       .then(response => {
         setInterviews(response.data);
       })
@@ -37,7 +37,7 @@ const App: React.FC = () => {
 
 const addInterview = async (newInterview: Omit<Interview, '_id'>) => {
   try {
-    const response = await axios.post('http://localhost:5000/interviews', newInterview);
+    const response = await axios.post('https://techjob-application-tracker.onrender.com/interviews', newInterview);
     const savedInterview = response.data;
     setInterviews([savedInterview, ...interviews]);
   } catch (error) {
@@ -48,7 +48,7 @@ const addInterview = async (newInterview: Omit<Interview, '_id'>) => {
 
 const handleUpdateStatus = async (jobId: string, newStatus: string): Promise<void> => {
   try {
-    await axios.put(`http://localhost:5000/interviews/${jobId}`, { status: newStatus });
+    await axios.put(`https://techjob-application-tracker.onrender.com/interviews/${jobId}`, { status: newStatus });
     setInterviews(prev =>
       prev.map(interview =>
         interview._id === jobId ? { ...interview, status: newStatus } : interview
